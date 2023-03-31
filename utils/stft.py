@@ -131,7 +131,11 @@ def split(sig, frameShape, hop, weightFrames=True, verbose=False):
                                  1)]
 
         # extract the signal
+        #print(np.__version__)
+        #print("FRAMERANGE: ", frameRange, type(frameRange)) #RAJESH EDITED THIS & NEXT LINES
+        #sigFrame = np.array([sig[frameRange[0]], sig[frameRange[1]], sig[frameRange[2]]])
         sigFrame = sig[frameRange]
+        #print(sigFrame.shape, sigFrame.shape[:fdim])
         sigFrame.shape = sigFrame.shape[:fdim]
 
         # the signal may be shorter than the normal size of a frame (at the end of the signal). We build a slice that corresponds to
