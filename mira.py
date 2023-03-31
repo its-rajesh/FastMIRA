@@ -587,6 +587,13 @@ class Mira(object):
 
     def input_normalization(self):
         log.info("Normalizing data...")
+        # RAJESH EDITED NEXT THREE LINES
+        #from joblibspark import register_spark
+        #register_spark()
+
+
+        #tmpX, tmpGains = zip(*Parallel(n_jobs=JOBLIB_NCORES, backend="spark", temp_folder=JOBLIB_TEMPFOLDER)
+        #                (delayed(self.par_norm)(self.X[...,i], self.V[...,i]) for i in range(self.I)))
         tmpX, tmpGains = zip(*Parallel(n_jobs=JOBLIB_NCORES, backend=JOBLIB_BACKEND, temp_folder=JOBLIB_TEMPFOLDER)
                         (delayed(self.par_norm)(self.X[...,i], self.V[...,i]) for i in range(self.I)))
         log.debug("ceating X and gains matrices")
@@ -870,15 +877,19 @@ class Mira(object):
         log.info("Loading X and Gains from file...")
         self.X     = np.load(path.join(self.tmp_folder, 'tmpX.npy'))
         self.gains = np.load(path.join(self.tmp_folder, 'tmpGains.npy'))
-        self.delete_tmp_X_gains()
+        self.delete_tmp_X_gains() 
         log.info("... done.")
         return
 
+    def delete_tmp_X_gains(self): #EDITED RAJESH
+        return
+    '''
     def delete_tmp_X_gains(self):
         log.info("Removing temporal files...")
         for file in ["tmpX.npy", "tmpGains.npy"]:
             if not os.path.isfile(file):
                 os.remove(path.join(self.tmp_folder, file))
         return
+    '''
 
 #-----------end Mira class-----------------------------------------------------#

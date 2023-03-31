@@ -31,6 +31,7 @@ import sys
 import yaml         #for yml file handling
 import logging      #for printing managing
 import traceback    #for exception handling
+from yaml.loader import SafeLoader
 
 from mira import Mira
 
@@ -53,7 +54,8 @@ log.addHandler(handler_file)
 def load(preset_num):
     #Load preset in preset.yaml
     with open("preset.yml", "r") as file_descriptor:
-        presets = yaml.load(file_descriptor)
+        print(file_descriptor)
+        presets = yaml.load(file_descriptor, Loader=SafeLoader)
     try:
         return presets[preset_num]
     except Exception:
